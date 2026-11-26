@@ -1,0 +1,80 @@
+/* Overlays */
+.ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center}
+/* Buttons are chunky key caps: a flat ledge underneath, and they sink when pressed. */
+@keyframes pulse{50%{transform:scale(1.04)}}
+.ghost{
+  border:2px solid var(--paper);background:#0a0a0a;color:var(--paper);font-family:var(--display);font-size:18px;letter-spacing:.08em;
+  padding:12px 34px;border-radius:14px;box-shadow:0 5px 0 #4a4a4a;transition:transform .06s,box-shadow .06s;
+}
+.ghost:active{background:var(--paper);color:#000;transform:translateY(4px);box-shadow:0 1px 0 #4a4a4a}
+
+/* Menu */
+#menu{background:linear-gradient(rgba(0,0,0,.92),rgba(0,0,0,.62) 45%,rgba(0,0,0,.62) 58%,rgba(0,0,0,.93))}
+.flag{position:absolute;left:0;right:0;height:12px;background:repeating-conic-gradient(#fff 0 25%,#000 0 50%) 0 0/12px 12px}
+.flag.t{top:0}.flag.b{bottom:0}
+.menu-top{margin-top:26px;width:calc(100% - 32px);display:flex;flex-direction:column;align-items:center;gap:4px}
+.title{margin:0;font-family:var(--display);font-weight:400;font-size:29px;line-height:1.05;letter-spacing:.02em;white-space:nowrap;font-style:normal;transform:skewX(-9deg);display:flex;gap:10px}
+.title span{color:#000;-webkit-text-stroke:1.4px var(--paper);paint-order:stroke fill;letter-spacing:.09em;padding-right:.05em}
+.sub{margin:0;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--steel);font-weight:600}
+#hero{width:328px;height:150px;margin-top:8px;display:block}
+.best{margin:0;font-size:11px;letter-spacing:.16em;color:var(--fog);height:14px;font-weight:600}
+.menu-mid{flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center}   /* button sits midway between banner and controls */
+/* Start / Resume / Start over: white key cap with three chasing lamps, like a race start. */
+.start{display:inline-flex;align-items:center;justify-content:center;gap:14px;height:64px;padding:0 36px;border:0;border-radius:18px;background:var(--paper);color:#000;font-family:var(--display);font-size:26px;letter-spacing:.06em;white-space:nowrap;
+  box-shadow:inset 0 -5px 0 #c4c4c4,0 7px 0 #6b6b6b;transition:transform .06s,box-shadow .06s}
+.start .lamps{display:flex;gap:6px}
+.start .lamps i{display:block;width:13px;height:13px;border-radius:50%;border:2.5px solid currentColor;animation:lamp 1.2s steps(1,end) infinite}
+.start .lamps i:nth-child(2){animation-delay:.2s}
+.start .lamps i:nth-child(3){animation-delay:.4s}
+@keyframes lamp{0%{background:currentColor}30%,100%{background:transparent}}
+.start:active{transform:translateY(5px);box-shadow:inset 0 -2px 0 #c4c4c4,0 2px 0 #6b6b6b}
+#btnStart:active{animation:none;transform:translateY(5px)}
+#btnStart.pulse{animation:pulse 1.6s ease-in-out infinite}
+.menu-bottom{width:calc(100% - 32px);margin-bottom:22px;display:flex;flex-direction:column;gap:12px;align-items:stretch}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border:2px solid var(--paper);border-radius:16px}
+.seg button{border:0;border-radius:11px;background:transparent;padding:12px 6px;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:8px}
+.seg button svg{width:16px;height:16px}
+.seg button[aria-pressed="true"]{background:var(--paper);color:#000;box-shadow:0 3px 0 #6b6b6b}
+.how{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:13.5px;line-height:1.25;color:var(--fog);font-weight:500}
+.how li{display:flex;gap:10px;align-items:flex-start}
+.how svg{width:17px;height:17px;flex:none;margin-top:0}
+.how b{color:var(--paper);font-weight:700;letter-spacing:.04em}
+.corner{position:absolute;right:14px;bottom:24px}
+
+/* Countdown */
+#cd{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:150px;pointer-events:none}
+.lights{display:flex;gap:12px;padding:10px 16px;background:#000;border:3px solid var(--paper);margin-bottom:8px}
+.lights i{width:30px;height:30px;border-radius:50%;border:3px solid var(--paper);background:#000;display:block}
+.lights i.on{background:var(--paper);box-shadow:0 0 18px 4px rgba(255,255,255,.55)}
+.num{font-family:var(--display);font-size:150px;line-height:1;color:var(--paper);-webkit-text-stroke:5px #000;paint-order:stroke fill;text-shadow:0 0 0 #000}
+.num.pop{animation:pop .9s cubic-bezier(.2,.9,.3,1) both}
+.num.goo{font-size:110px;letter-spacing:.05em}
+@keyframes pop{0%{transform:scale(2.2);opacity:0}22%{opacity:1}100%{transform:scale(1);opacity:1}}
+#cdHint{margin:8px 0 0;font-size:12px;letter-spacing:.24em;text-transform:uppercase;font-weight:700;background:#000;padding:6px 12px;border:2px solid var(--paper)}
+
+/* Pause + game over */
+#pause{background:rgba(0,0,0,.8);justify-content:center;gap:16px}
+#pause h2,#over h2{margin:0;font-family:var(--display);font-weight:400;font-size:46px;letter-spacing:.05em;font-style:italic}
+#over{background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.86) 38%,rgba(0,0,0,.9));justify-content:center}
+.over-card{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;padding:0 22px}
+.badge{font-family:var(--display);font-size:15px;letter-spacing:.14em;background:var(--paper);color:#000;padding:5px 16px 4px;border-radius:10px;animation:blink 1s linear infinite}
+@keyframes blink{0%,49.9%{background:#f6f6f6;color:#000;box-shadow:none}50%,100%{background:#000;color:#f6f6f6;box-shadow:inset 0 0 0 2px #f6f6f6}}
+.distBig{display:flex;flex-direction:column;align-items:center;line-height:1;margin-top:-4px}
+.distBig .lbl{margin-bottom:6px}
+.distBig #oDist{font-family:var(--display);font-size:72px;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.distBig small{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--steel);font-weight:700;margin-top:2px}
+.stats{margin:2px 0 6px;width:100%;display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:2px solid var(--paper);border-bottom:2px solid var(--paper)}
+.stats div{padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.stats div:nth-child(odd){border-right:1px solid #444}
+.stats div:nth-child(n+3){border-top:1px solid #444}
+.stats dt{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--steel);font-weight:700}
+.stats dd{margin:0;font-family:var(--display);font-size:22px;font-variant-numeric:tabular-nums}
+
+/* Landscape notice */
+#rotate{position:fixed;inset:0;z-index:100;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:24px}
+#rotate svg{width:96px;height:96px;animation:turn 2.4s ease-in-out infinite}
+@keyframes turn{0%,25%{transform:rotate(-90deg)}60%,100%{transform:rotate(0)}}
+#rotate h2{margin:0;font-family:var(--display);font-weight:400;font-size:30px;letter-spacing:.05em}
+#rotate p{margin:0;max-width:28ch;color:var(--fog);font-size:14px;line-height:1.4}
+
+@media (prefers-reduced-motion:reduce){.start .lamps i{animation:none}.go.pulse,#btnStart.pulse,.badge,.health.hurt,#rotate svg{animation:none}.num.pop{animation:none}}

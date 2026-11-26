@@ -1,0 +1,38 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>icon renderer</title>
+<body style="margin:0;background:#888">
+<canvas id="c"></canvas>
+<script type="module">
+/* Draws the app icon with the game's own kart renderer, so the icon always matches the game.
+   Used by scripts/make-icons.cjs. Open this page with ?size=512&maskable=1 */
+import { drawKart } from '../src/render/kart.js';
+
+const q = new URLSearchParams(location.search);
+const size = Number(q.get('size')) || 512;
+const maskable = q.get('maskable') === '1';      // full-bleed square, kart kept inside the centre safe zone
+const square = q.get('square') === '1';          // full-bleed square without the safe zone (Apple rounds corners itself)
+const c = document.getElementById('c'); c.width = c.height = size;
+const g = c.getContext('2d');
+
+const radius = (maskable || square) ? 0 : size * 0.2;
+g.beginPath(); g.roundRect(0, 0, size, size, radius); g.clip();
+g.fillStyle = '#070707'; g.fillRect(0, 0, size, size);
+
+// asphalt with dashed centre line
+g.fillStyle = '#161616'; g.fillRect(size * .22, 0, size * .56, size);
+g.fillStyle = '#f6f6f6'; g.fillRect(size * .22, 0, size * .018, size); g.fillRect(size * .762, 0, size * .018, size);
+g.fillStyle = 'rgba(255,255,255,.8)';
+for (let y = -size * .05; y < size; y += size * .2) g.fillRect(size * .494, y, size * .012, size * .1);
+
+// checkered curbs
+const cs = size / 16;
+for (let i = 0; i < 16; i++) {
+  g.fillStyle = i % 2 ? '#000' : '#fff';
+  g.fillRect(size * .22 - cs * .9, i * cs, cs * .9, cs); g.fillRect(size * .78, i * cs, cs * .9, cs);
+}
+
+// kart, facing up, inside the maskable safe zone (centre 60%)
+const k = (maskable ? .56 : .66) * size / 75;
+drawKart(g, size / 2, size * .53, { scale: k, tilt: 0, steer: 0, phase: 0 });
+</script>

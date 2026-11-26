@@ -1,0 +1,14 @@
+/* Fonts.
+   On the web, index.html loads Russo One and Barlow Semi Condensed from Google Fonts.
+   For an Android or iOS app that must work offline, host them yourself instead:
+     1. Download both families from fonts.google.com (OFL licence, free to bundle).
+     2. Put the .woff2 files in the fonts/ folder, with the names below.
+     3. Delete the Google Fonts <link> tags in index.html and remove the comment marks around this block.
+   Until then, the game falls back to Impact / Arial Narrow / the system font, which keeps it fully playable. */
+
+/*
+@font-face{ font-family:'Russo One'; src:url('../fonts/RussoOne-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+@font-face{ font-family:'Barlow Semi Condensed'; src:url('../fonts/BarlowSemiCondensed-Medium.woff2') format('woff2'); font-weight:500; font-display:swap; }
+@font-face{ font-family:'Barlow Semi Condensed'; src:url('../fonts/BarlowSemiCondensed-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+@font-face{ font-family:'Barlow Semi Condensed'; src:url('../fonts/BarlowSemiCondensed-Bold.woff2') format('woff2'); font-weight:700; font-display:swap; }
+*/

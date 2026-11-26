@@ -1,0 +1,59 @@
+/* HUD */
+#hud{position:absolute;inset:0;pointer-events:none}
+.hud-top{position:absolute;left:0;right:0;top:0;padding:10px 14px 22px;display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:8px;background:linear-gradient(#000 0,rgba(0,0,0,.82) 55%,transparent)}
+.stat{display:flex;flex-direction:column;gap:1px;min-width:0}
+.stat.c{align-items:center}.stat.r{align-items:flex-end}
+.lbl{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--steel);font-weight:600}
+.val{font-family:var(--display);font-size:18px;letter-spacing:.03em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.val.big{font-size:30px;line-height:1}
+.hud-row{position:absolute;left:12px;right:12px;top:62px;display:flex;align-items:center;gap:8px}
+.pill{display:flex;align-items:center;gap:8px;height:34px;padding:0 12px 0 9px;background:rgba(0,0,0,.72);border:2px solid var(--paper);border-radius:12px;font-weight:700;font-size:12px;letter-spacing:.08em}
+.pill svg{width:18px;height:18px;flex:none}
+.health{min-width:140px}
+.hud-row2{position:absolute;left:12px;right:12px;top:104px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px}
+.tray{display:flex;gap:4px;align-items:center;background:rgba(0,0,0,.72);border:2px solid var(--paper);padding:3px 8px 3px 10px;border-radius:10px;overflow:hidden}
+.tray .lbl{font-size:9px;margin-right:3px}
+.slot{width:24px;height:24px;display:grid;place-items:center;border:1.5px solid #6a6a6a;color:#6a6a6a}
+.slot svg{width:15px;height:15px}
+.slot.on{background:var(--paper);color:#000;border-color:var(--paper)}
+.chip{position:relative;display:flex;align-items:center;gap:5px;height:30px;padding:0 10px 0 9px;background:var(--paper);color:#000;font-weight:700;font-size:13px;font-variant-numeric:tabular-nums;border-radius:10px;overflow:hidden}
+.chip svg{width:16px;height:16px}
+.cbar{position:absolute;left:0;right:0;bottom:0;height:3px;background:#8a8a8a}
+.cbar u{display:block;height:100%;width:100%;background:#000;text-decoration:none}
+.hbody{display:flex;flex-direction:column;gap:3px;min-width:0}
+.hbar{display:block;width:88px;height:4px;background:#3a3a3a}
+.hbar b{display:block;height:100%;width:100%;background:var(--paper)}
+.health.hurt{animation:hurt .7s steps(2,end) infinite}
+.health.hurt .hbar b{background:var(--paper)}
+.health.hurt .hicon path{fill:none}
+@keyframes hurt{50%{background:#fff;color:#000}}
+.health.hurt:not(:hover){}
+.health.hurt svg path{stroke-width:2.4}
+.coinpill{padding-right:14px}
+.sp{flex:1}
+/* coin bar and parts bar: same pill, same width, content centered */
+.pill.coinpill,.pill.tray{width:108px;padding:0 8px;justify-content:center;gap:7px;border-radius:12px;overflow:visible}
+.pill.tray{gap:4px}
+.pill.tray .slot{width:24px;height:24px}
+.pill.coinpill #hCoins{min-width:2ch;font-size:14px;font-variant-numeric:tabular-nums}
+#ctrls.locked{opacity:.35}
+#ctrls.locked .arrow{pointer-events:none}
+.ib{pointer-events:auto;width:36px;height:36px;display:grid;place-items:center;background:#0a0a0a;border:2px solid var(--paper);border-radius:11px;color:var(--paper);padding:0;box-shadow:0 3px 0 #555;transition:transform .06s,box-shadow .06s}
+.ib svg{width:18px;height:18px}
+.ib:active{background:var(--paper);color:#000;transform:translateY(2px);box-shadow:0 1px 0 #555}
+/* Pause: solid round button, so it reads differently from the sound toggle */
+#btnPause{width:38px;height:38px;border:0;border-radius:11px;background:var(--paper);color:#000;box-shadow:inset 0 -3px 0 #c4c4c4,0 3px 0 #6b6b6b}
+#btnPause:active{background:var(--paper);color:#000;transform:translateY(2px);box-shadow:inset 0 -1px 0 #c4c4c4,0 1px 0 #6b6b6b}
+.wave,.slash{display:none}
+body:not(.muted) .wave{display:inline}
+body.muted .slash{display:inline}
+
+/* Arrow buttons */
+#ctrls{position:absolute;left:0;right:0;bottom:16px;padding:0 14px;display:flex;justify-content:space-between;pointer-events:none}
+.arrow{pointer-events:auto;width:92px;height:92px;border-radius:24px;background:rgba(10,10,10,.7);border:3px solid var(--paper);color:var(--paper);display:grid;place-items:center;padding:0;touch-action:none;box-shadow:0 7px 0 #555;transition:transform .06s,box-shadow .06s}
+.arrow svg{width:46px;height:46px}
+.arrow.on{background:var(--paper);color:#000;transform:translateY(5px);box-shadow:0 2px 0 #555}
+
+/* Tap targets: the pause and sound buttons look 36px, but respond within 5px of their edge (Apple and Google both ask for ~44px). */
+.ib{position:relative}
+.ib::after{content:"";position:absolute;inset:-5px}

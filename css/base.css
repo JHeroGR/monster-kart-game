@@ -1,0 +1,29 @@
+/* The overlays use display:flex, so [hidden] must win over it. */
+[hidden]{display:none!important}
+/* Safe areas: keeps the game clear of notches and home indicators on iOS and Android (viewport-fit=cover). */
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{background:#070707;overscroll-behavior:none}
+body{overscroll-behavior:none}
+/* Layout: one fixed-width (360) portrait stage whose height adapts to the phone, scaled to fit and letterboxed on wide screens.
+   Look: pure monochrome. Black asphalt, white kart, checkered curbs, hard-edged parallelogram buttons. */
+:root{
+  --ink:#070707; --coal:#141414; --ash:#2b2b2b; --steel:#8c8c8c; --fog:#d6d6d6; --paper:#f6f6f6;
+  --display:'Russo One','Impact','Arial Narrow',sans-serif;
+  --body:'Barlow Semi Condensed','Arial Narrow',system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--ink);color:var(--paper);font-family:var(--body);overflow:hidden;
+  padding-block:0;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  -webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:none;
+  background-image:repeating-conic-gradient(#0a0a0a 0 25%,#101010 0 50%);background-size:28px 28px;
+}
+button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:3px solid var(--paper);outline-offset:3px}
+#vp{position:relative;width:100%;height:100%}
+#stage{position:absolute;left:50%;top:50%;width:360px;height:640px;transform-origin:50% 50%;background:#000;overflow:hidden;box-shadow:0 0 0 2px #333,0 0 60px #000}
+#game{position:absolute;left:0;top:0;display:block}

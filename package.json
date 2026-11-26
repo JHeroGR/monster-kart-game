@@ -1,0 +1,21 @@
+{
+  "name": "monster-kart",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Endless black-and-white kart racer for portrait phones.",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/build.mjs && node scripts/serve.mjs dist",
+    "icons": "node scripts/make-icons.cjs",
+    "test": "node tests/run.cjs",
+    "test:src": "node tests/run.cjs --src"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

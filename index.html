@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Monster Kart</title>
+<meta name="description" content="Endless black-and-white kart racing. Dodge rocks, potholes and rivals, grab coins and build a monster kart.">
+<meta name="theme-color" content="#070707">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Monster Kart">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&family=Barlow+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/hud.css">
+<link rel="stylesheet" href="css/screens.css">
+</head>
+<body>
+<div id="vp">
+  <div id="stage">
+    <canvas id="game"></canvas>
+
+    <div id="hud" hidden>
+      <div class="hud-top">
+        <div class="stat"><span class="lbl">Score</span><span class="val big" id="hScore">0</span></div>
+        <div class="stat r"><span class="lbl">Distance</span><span class="val" id="hDist">0 m</span></div>
+      </div>
+      <div class="hud-row">
+        <div class="pill coinpill">
+          <svg viewBox="-12 -12 24 24"><circle r="10" fill="#fff"/><circle r="6" fill="none" stroke="#000" stroke-width="1.8"/></svg>
+          <span id="hCoins">0</span>
+        </div>
+        <div class="pill tray" aria-label="Monster kart parts">
+          <i class="slot" id="sl0"><svg viewBox="-12 -12 24 24"><circle r="5.5" fill="currentColor"/><circle r="8.6" fill="none" stroke="currentColor" stroke-width="4" stroke-dasharray="3.4 3.4"/></svg></i>
+          <i class="slot" id="sl1"><svg viewBox="-12 -12 24 24"><circle r="8.4" fill="none" stroke="currentColor" stroke-width="5"/></svg></i>
+          <i class="slot" id="sl2"><svg viewBox="-12 -12 24 24"><path d="M-8-9h16v10q0 7-8 10-8-3-8-10z" fill="currentColor"/></svg></i>
+        </div>
+        <span class="sp"></span>
+        <button class="ib" id="btnPause" aria-label="Pause"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="5" height="16" fill="currentColor"/><rect x="14" y="4" width="5" height="16" fill="currentColor"/></svg></button>
+        <button class="ib sndBtn" aria-label="Toggle sound"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 4V5L7 9H3z" fill="currentColor"/><path class="wave" d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"/><path class="slash" d="M15 9l6 6M21 9l-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="hud-row2">
+        <span class="chip" id="chMagnet" hidden><svg viewBox="-12 -12 24 24"><path d="M-6 8V-1a6 6 0 0 1 12 0V8" fill="none" stroke="currentColor" stroke-width="5"/></svg><b id="tMagnet">8</b><span class="cbar"><u id="bMagnet"></u></span></span>
+        <span class="chip" id="chMonster" hidden><svg viewBox="-12 -12 24 24"><circle r="8" fill="none" stroke="currentColor" stroke-width="4.5"/><circle r="2.5" fill="currentColor"/></svg><b id="tMonster">10</b><span class="cbar"><u id="bMonster"></u></span></span>
+      </div>
+    </div>
+
+    <div id="ctrls" hidden>
+      <button class="arrow" id="btnL" aria-label="Steer left"><svg viewBox="0 0 24 24"><path d="M15 3L5 12l10 9V15h5V9h-5z" fill="currentColor"/></svg></button>
+      <button class="arrow" id="btnR" aria-label="Steer right"><svg viewBox="0 0 24 24"><path d="M9 3l10 9-10 9V15H4V9h5z" fill="currentColor"/></svg></button>
+    </div>
+
+    <div id="cd" hidden>
+      <div class="lights"><i></i><i></i><i></i></div>
+      <div class="num" id="cdNum">3</div>
+      <p id="cdHint"></p>
+    </div>
+
+    <section id="pause" class="ov" hidden>
+      <h2>PAUSED</h2>
+      <button class="start" id="btnResume"><span>RESUME</span></button>
+      <button class="ghost" id="btnPauseMenu">MENU</button>
+    </section>
+
+    <section id="menu" class="ov">
+      <div class="flag t"></div><div class="flag b"></div>
+      <div class="menu-top">
+        <h1 class="title">MONSTER<span>KART</span></h1>
+        <canvas id="hero" aria-label="The Monster Kart race kart" role="img"></canvas>
+        <p class="best" id="mBest"></p>
+      </div>
+      <div class="menu-mid"><button class="start pulse" id="btnStart"><span>START</span></button></div>
+      <div class="menu-bottom">
+        <div class="seg" role="group" aria-label="Controls">
+          <button id="mTouch" aria-pressed="true"><svg viewBox="0 0 24 24"><path d="M9 11V5a2 2 0 0 1 4 0v6l5 1.5c1 .3 1.6 1.3 1.4 2.3L18.6 20H9.5l-4-5.5c-.6-.8 0-1.9 1-1.9.5 0 .9.2 1.2.6L9 15z" fill="currentColor"/></svg>Touch</button>
+          <button id="mArrows" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M2 12l7-7v5h6V5l7 7-7 7v-5H9v5z" fill="currentColor"/></svg>Arrows</button>
+        </div>
+        <ul class="how">
+          <li><svg viewBox="0 0 24 24"><path d="M2 12l7-7v5h6V5l7 7-7 7v-5H9v5z" fill="#fff"/></svg><span><b>Steer</b>: drag your finger or use the arrows.</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 18l2-8 5-5 6 2 3 6-3 6z" fill="#fff"/></svg><span><b>Dodge</b> rocks, potholes and rival cars.</span></li>
+          <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="#fff"/><circle cx="12" cy="12" r="5.5" fill="none" stroke="#000" stroke-width="2"/></svg><span><b>Coins</b> are worth +10 points each.</span></li>
+          <li><svg viewBox="-14 -14 28 28"><path d="M0 9C-15-1-10-13 0-6C10-13 15-1 0 9Z" fill="#fff"/><path d="M-1.6-4h3.2v3.4h3.4v3.2h-3.4v3.4h-3.2v-3.4h-3.4v-3.2h3.4z" fill="#000"/></svg><span><b>Crash</b> = smoke. Drive clean or grab a heart.</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M12 1l2.4 6.3L21 5l-3 6 5 3-6.3 1L18 22l-6-4-6 4 1.3-7L1 14l5-3-3-6 6.6 2.3z" fill="#fff"/></svg><span><b>Crash while smoking</b> and you explode.</span></li>
+          <li><svg viewBox="-12 -12 24 24"><path d="M3-11L-7 2h6l-2 9 10-14H1z" fill="#fff"/></svg><span><b>Bolt</b> speeds you up. <b>Magnet</b> pulls coins.</span></li>
+          <li><svg viewBox="-12 -12 24 24"><circle r="8.4" fill="none" stroke="#fff" stroke-width="5"/></svg><span><b>3 parts</b> = 10 second monster kart.</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M3 17a9 9 0 1 1 18 0" fill="none" stroke="#fff" stroke-width="2.4"/><path d="M12 17l5-7" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg><span>The longer you race, the faster it gets.</span></li>
+        </ul>
+      </div>
+      <button class="ib sndBtn corner" aria-label="Toggle sound"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 4V5L7 9H3z" fill="currentColor"/><path class="wave" d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"/><path class="slash" d="M15 9l6 6M21 9l-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+    </section>
+
+    <section id="over" class="ov" hidden>
+      <div class="over-card">
+        <h2>GAME OVER</h2>
+        <div class="badge" id="newBest" hidden>NEW BEST</div>
+        <div class="distBig"><span class="lbl">You got</span><span id="oDist">0</span><small>meters</small></div>
+        <dl class="stats">
+          <div><dt>Score</dt><dd id="oScore">0</dd></div>
+          <div><dt>Coins</dt><dd id="oCoins">0</dd></div>
+          <div><dt>Top speed</dt><dd id="oSpeed">0 km/h</dd></div>
+          <div><dt>Best distance</dt><dd id="oBest">0 m</dd></div>
+        </dl>
+        <button class="start" id="btnAgain"><span>START OVER</span></button>
+        <button class="ghost" id="btnMenu">MENU</button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div id="rotate" hidden>
+  <svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round"><rect x="18" y="4" width="28" height="56" rx="5"/><path d="M28 9h8" stroke-linecap="round"/><circle cx="32" cy="53" r="2" fill="#fff" stroke="none"/></svg>
+  <h2>TURN YOUR PHONE UPRIGHT</h2>
+  <p>Monster Kart only plays in portrait. Rotate back to keep racing. Your race is paused.</p>
+</div>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
