@@ -4,7 +4,7 @@
 
 **MONSTER KART** is an endless, black-and-white kart racer built for portrait phones. Dodge rocks, potholes, and rival cars while collecting coins and hearts, then gather all three parts to transform into a monster kart.
 
-🔗 **[Play the Game / Run Locally](#-getting-started-for-developers)**
+🔗 **[Play the Game](http://jherogr.github.io/monster-kart-game/)**
 
 ---
 
